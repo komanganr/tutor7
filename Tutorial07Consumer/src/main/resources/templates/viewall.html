@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: title">
+</head>
+<body>
+	<div th:replace="fragments/header"></div>
+	<h3 class="col-lg-10 my-4">All Students</h3>
+	<div class="row">
+		<div class="col-lg-8">
+			<table id="tabel_allStudents"
+				class="table table-hover table-condensed table-sm table-striped"
+				cellspacing="0" style="font-size: 16px;">
+				<thead class="thead-inverse">
+					<tr>
+						<th>No</th>
+						<th>NPM</th>
+						<th>Name</th>
+						<th>GPA</th>
+						<th>Keterangan</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="student, iterationStatus: ${students}">
+						<td><p th:text="${iterationStatus.count}">No</p></td>
+						<td><p th:text="${student.npm}">Student NPM</p></td>
+						<td><p th:text="${student.name}">Student Name</p></td>
+						<td><p th:text="${student.gpa}">Student GPA</p></td>
+						<td><p
+								th:text="${student.gpa>= 3.49} ? 'Cum Laude' : 'Sangat Memuaskan' ">Cum
+								Laude</p></td>
+						<td class="text-center">
+							<div class="btn-group" role="group">
+								<a class="btn btn-info"
+									th:href="'/student/update/' + ${student.npm}"> Update Data
+								</a> <a class="btn btn-danger"
+									th:href="'/student/delete/' + ${student.npm}"> Delete Data
+								</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+<script>
+		$(document).ready(function() {
+			$('#tabel_allStudents').DataTable();
+		});
+	</script>
+</html>
